@@ -4,7 +4,7 @@ module SpaceInvaders
   class Window < Gosu::Window
     def initialize
       super(640, 441)
-      @background = Gosu::Image.new("media/background.jpg")
+      @background = Gosu::Image.new("media/images/background.jpg")
     end
 
     def update
