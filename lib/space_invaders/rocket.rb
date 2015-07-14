@@ -1,15 +1,28 @@
 module SpaceInvaders
   class Rocket
-    def initialize
+    attr_reader :x, :y, :z
+
+    def initialize(x, y, z)
       @image = Gosu::Image.new("media/images/rocket.png")
+      @x = x
+      @y = y
+      @z = z
+    end
+
+    def move_left
+      @x -= 1
+    end
+
+    def move_right
+      @x += 1
     end
 
     def height
       @image.height
     end
 
-    def draw(x, y, z)
-      @image.draw(x, y, z)
+    def draw
+      @image.draw(@x, @y, @z)
     end
   end
 end
