@@ -1,7 +1,3 @@
-require "bundler/setup"
-require "rspec"
-require "space_invaders"
-
 RSpec.describe SpaceInvaders::Rocket do
   describe "#move_left" do
     it "moves the rocket left by 1 pixel" do
@@ -19,5 +15,4 @@ RSpec.describe SpaceInvaders::Rocket do
       expect(rocket.x).to be(1)
     end
   end
-
 end
