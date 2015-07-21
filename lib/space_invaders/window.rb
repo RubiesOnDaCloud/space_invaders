@@ -1,5 +1,6 @@
 require "gosu"
 require "space_invaders/rocket"
+require "space_invaders/alien"
 
 module SpaceInvaders
   class Window < Gosu::Window
@@ -11,6 +12,7 @@ module SpaceInvaders
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 60
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 0, WIDTH-1)
+      @alien = Alien.new(WIDTH / 4, HEIGHT - 110, 0)
     end
 
     def update
@@ -25,6 +27,7 @@ module SpaceInvaders
     def draw
       @background.draw(0, 0, -1)
       @rocket.draw
+      @alien.draw
     end
   end
 end
