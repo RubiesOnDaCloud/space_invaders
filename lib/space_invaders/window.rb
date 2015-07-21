@@ -12,7 +12,7 @@ module SpaceInvaders
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 60
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 0, WIDTH-1)
-      @alien = Alien.new(WIDTH / 4, HEIGHT - 110, 0)
+      @alien = Alien.new(0, 0, 0)
     end
 
     def update
@@ -22,6 +22,7 @@ module SpaceInvaders
       if Gosu::button_down?(Gosu::KbRight)
         @rocket.move_right
       end
+      @alien.update
     end
 
     def draw

@@ -7,10 +7,18 @@ module SpaceInvaders
       @x = x
       @y = y
       @z = z
+      @scale = 1/2.to_f
+      @velocity_x = 10
+      @counter = 0
     end
 
+    def update
+    	@counter = @counter + 1
+  		@x = @x + @velocity_x if @counter % 40 == 0
+	  end
+
     def draw
-      @image.draw(@x, @y, @z)
+      @image.draw(@x,@y,0, @scale, @scale)
     end
   end
 end
