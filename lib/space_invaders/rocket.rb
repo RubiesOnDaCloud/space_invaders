@@ -10,11 +10,11 @@ module SpaceInvaders
     end
 
     def move_left
-      @x -= 1
+      @x -= 10
     end
 
     def move_right
-      @x += 1
+      @x += 10
     end
 
     def height
