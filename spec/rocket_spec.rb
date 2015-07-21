@@ -1,3 +1,5 @@
+require_relative "spec_helper"
+
 RSpec.describe SpaceInvaders::Rocket do
   describe "#move_left" do
     it "moves the rocket left by 10 pixel" do
