@@ -10,7 +10,7 @@ module SpaceInvaders
       super(WIDTH, HEIGHT)
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 60
-      @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 0)
+      @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 0, WIDTH-1)
     end
 
     def update
