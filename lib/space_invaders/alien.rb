@@ -14,7 +14,9 @@ module SpaceInvaders
 
     def update
       @counter = @counter + 1
-      @x = @x + @velocity_x if @counter % 40 == 0
+      if @counter % 40 == 0
+        @x = @x + @velocity_x 
+      end
     end
 
     def draw
