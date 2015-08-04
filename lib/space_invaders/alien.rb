@@ -1,6 +1,6 @@
 module SpaceInvaders
   class Alien
-  	attr_reader :x, :y, :z
+    attr_reader :x, :y, :z
 
     def initialize(x, y, z)
       @image = Gosu::Image.new("media/images/alien.png")
@@ -13,12 +13,12 @@ module SpaceInvaders
     end
 
     def update
-    	@counter = @counter + 1
-  		@x = @x + @velocity_x if @counter % 40 == 0
-	  end
+      @counter = @counter + 1
+      @x = @x + @velocity_x if @counter % 40 == 0
+    end
 
     def draw
-      @image.draw(@x,@y,0, @scale, @scale)
+      @image.draw(@x, @y, 0, @scale, @scale)
     end
   end
 end
