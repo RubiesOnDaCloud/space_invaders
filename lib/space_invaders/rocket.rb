@@ -32,7 +32,7 @@ module SpaceInvaders
     end
 
     def fire_laser
-      @lasers << Laser.new(@x + (@image.width/2) - 2, @y + 4, 0, "yellow")
+      @lasers << Laser.new(@x + (@image.width/2) - 2, @y - 1, 0, "yellow")
     end
 
     def height

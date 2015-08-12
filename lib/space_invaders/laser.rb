@@ -4,13 +4,14 @@ module SpaceInvaders
     def initialize(x, y, z, color)
       @image = Gosu::Image.new("media/images/lasers/" + color + ".png")
       Gosu::Sample.new("media/sounds/laser.wav").play
+      @velocity = 5
       @x = x
-      @y = y
+      @y = y - @velocity
       @z = z
     end
 
     def draw
-      @image.draw(@x, @y -= 5, @z)
+      @image.draw(@x, @y -= @velocity, @z)
     end
   end
 end
