@@ -10,7 +10,7 @@ module SpaceInvaders
     def initialize
       super(WIDTH, HEIGHT)
       @background = Gosu::Image.new("media/images/background.jpg")
-      # FIXME: Use the rocket's height instead of hardcoding 60
+      # FIXME: Use the rocket's height instead of hardcoding 110
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 1, WIDTH-1)
       @aliens = 10.times.collect do |number_of_times_through_the_loop|
         Alien.new(60 * number_of_times_through_the_loop, 0, 0)
