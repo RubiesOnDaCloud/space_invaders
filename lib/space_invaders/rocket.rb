@@ -43,6 +43,9 @@ module SpaceInvaders
       if laser_count >= 1 && @lasers.first.y <= -16
         @lasers = []
       end
+      @lasers.each do |laser|
+        laser.update
+      end
     end
 
     def draw

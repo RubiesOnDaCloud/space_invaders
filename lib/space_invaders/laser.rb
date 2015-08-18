@@ -11,8 +11,12 @@ module SpaceInvaders
       @z = z
     end
 
+    def update
+      @y = @y - @velocity
+    end
+
     def draw
-      @image.draw(@x, @y -= @velocity, @z)
+      @image.draw(@x, @y, @z)
     end
   end
 end
