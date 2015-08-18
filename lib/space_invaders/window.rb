@@ -13,8 +13,9 @@ module SpaceInvaders
       # FIXME: Use the rocket's height instead of hardcoding 110
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 1, WIDTH-1)
       @aliens = 10.times.collect do |number_of_times_through_the_loop|
-        Alien.new(60 * number_of_times_through_the_loop, 0, 0)
+        Alien.new(60 * number_of_times_through_the_loop, 0, 1)
       end
+      @counter = 0
     end
 
     def update
@@ -30,6 +31,11 @@ module SpaceInvaders
       @rocket.update
       @aliens.each do |alien|
         alien.update
+      end
+
+      @counter = @counter + 1
+      if @counter % 120 == 0
+        @aliens.sample.fire_laser
       end
     end
 

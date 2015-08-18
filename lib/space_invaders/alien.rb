@@ -10,6 +10,11 @@ module SpaceInvaders
       @scale = 0.5
       @velocity_x = 10
       @counter = 0
+      @lasers = []
+    end
+
+    def fire_laser
+      @lasers << Laser.new(@x + (@image.width/2) - 2, @y, 0, "purple", +5)
     end
 
     def update
@@ -17,10 +22,18 @@ module SpaceInvaders
       if @counter % 40 == 0
         @x = @x + @velocity_x
       end
+
+      @lasers.each do |laser|
+        laser.update
+      end
     end
 
     def draw
       @image.draw(@x, @y, 0, @scale, @scale)
+
+      @lasers.each do |laser|
+        laser.draw
+      end
     end
   end
 end
