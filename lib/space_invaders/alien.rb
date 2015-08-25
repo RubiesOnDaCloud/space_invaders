@@ -1,6 +1,9 @@
+require 'space_invaders/laser'
+require 'space_invaders/positionable'
+
 module SpaceInvaders
   class Alien
-    attr_reader :x, :y
+    include Positionable
 
     def initialize(x, y, z)
       @image = Gosu::Image.new("media/images/alien.png")
@@ -21,7 +24,6 @@ module SpaceInvaders
       if @counter % 40 == 0
         @x = @x + @velocity_x
       end
-
       @lasers.each do |laser|
         laser.update
       end

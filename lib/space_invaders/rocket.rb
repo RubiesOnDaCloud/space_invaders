@@ -1,8 +1,9 @@
 require "space_invaders/laser"
+require "space_invaders/positionable"
 
 module SpaceInvaders
   class Rocket
-    attr_reader :x
+    include Positionable
 
     def initialize(x, y, z, max_x)
       @image = Gosu::Image.new("media/images/rocket.png")
