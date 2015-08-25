@@ -7,7 +7,6 @@ module SpaceInvaders
       @x = x
       @y = y
       @z = z
-      @scale = 0.5
       @velocity_x = 10
       @counter = 0
       @lasers = []
@@ -29,8 +28,7 @@ module SpaceInvaders
     end
 
     def draw
-      @image.draw(@x, @y, 0, @scale, @scale)
-
+      @image.draw(@x, @y, 0)
       @lasers.each do |laser|
         laser.draw
       end
