@@ -28,14 +28,14 @@ module SpaceInvaders
       if Gosu::button_down?(Gosu::KbSpace) && @rocket.laser_count.zero?
         @rocket.fire_laser
       end
-      @rocket.update
       @aliens.each do |alien|
         alien.update
       end
-
+      # FIXME: It's quite strange to pass the aliens into the rocket
+      @rocket.update(@aliens)
       @counter = @counter + 1
       if @counter % 120 == 0
-        @aliens.sample.fire_laser
+        @aliens.select(&:alive?).sample.fire_laser
       end
     end
 

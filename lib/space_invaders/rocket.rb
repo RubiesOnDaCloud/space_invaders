@@ -40,12 +40,15 @@ module SpaceInvaders
       @image.height
     end
 
-    def update
+    def update(aliens)
       if laser_count >= 1 && @lasers.first.y <= -16
         @lasers = []
       end
       @lasers.each do |laser|
         laser.update
+        aliens.each do |alien|
+          alien.die! if alien.alive? && laser.collides_with?(alien)
+        end
       end
     end
 
