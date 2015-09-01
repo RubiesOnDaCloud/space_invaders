@@ -29,7 +29,7 @@ module SpaceInvaders
         @rocket.fire_laser
       end
       @aliens.each do |alien|
-        alien.update
+        alien.update(@rocket)
       end
       # FIXME: It's quite strange to pass the aliens into the rocket
       @rocket.update(@aliens)
