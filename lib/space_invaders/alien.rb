@@ -34,7 +34,7 @@ module SpaceInvaders
     end
 
     def fire_laser
-      @lasers << Laser.new(@x + (@image.width/2) - 2, @y, 0, "purple", +5)
+      @lasers << Laser.new(@x + width / 2 - 2, @y, 0, "purple", +5)
     end
 
     def update(rocket)
@@ -54,8 +54,8 @@ module SpaceInvaders
     end
 
     def draw
-      offset_x = @image.width * (1 - @scale) / 2
-      offset_y = @image.height * (1 - @scale) / 2
+      offset_x = width * (1 - @scale) / 2
+      offset_y = height * (1 - @scale) / 2
       @image.draw(@x + offset_x, @y + offset_y, @z, @scale, @scale) if @death_counter < 30
       @lasers.each do |laser|
         laser.draw

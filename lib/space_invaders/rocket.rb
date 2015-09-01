@@ -47,18 +47,14 @@ module SpaceInvaders
     def move_right
       return if dead?
       @x += 10
-      if @x > @max_x - @image.width
-        @x = @max_x - @image.width
+      if @x > @max_x - width
+        @x = @max_x - width
       end
     end
 
     def fire_laser
       return if dead?
-      @lasers << Laser.new(@x + (@image.width/2) - 2, @y - 1, 0, "yellow", -5)
-    end
-
-    def height
-      @image.height
+      @lasers << Laser.new(@x + (width/2) - 2, @y - 1, 0, "yellow", -5)
     end
 
     def update(aliens)

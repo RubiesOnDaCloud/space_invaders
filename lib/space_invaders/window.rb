@@ -11,9 +11,9 @@ module SpaceInvaders
       super(WIDTH, HEIGHT)
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 110
-      @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 1, WIDTH-1)
-      @aliens = 10.times.collect do |number_of_times_through_the_loop|
-        Alien.new(60 * number_of_times_through_the_loop, 0, 1)
+      @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 2, WIDTH - 1)
+      @aliens = 11.times.collect do |n|
+        Alien.new(45 * n, 0, 1)
       end
       @counter = 0
     end
@@ -31,10 +31,9 @@ module SpaceInvaders
       @aliens.each do |alien|
         alien.update(@rocket)
       end
-      # FIXME: It's quite strange to pass the aliens into the rocket
       @rocket.update(@aliens)
       @counter = @counter + 1
-      if @counter % 120 == 0
+      if @counter % 120 == 0 && @rocket.alive?
         @aliens.select(&:alive?).sample.fire_laser
       end
     end
