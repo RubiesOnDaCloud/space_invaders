@@ -1,6 +1,8 @@
+require "space_invaders/positionable"
+
 module SpaceInvaders
   class Laser
-    attr_reader :y
+    include Positionable
 
     def initialize(x, y, z, color, velocity)
       @image = Gosu::Image.new("media/images/lasers/" + color + ".png")
@@ -9,6 +11,13 @@ module SpaceInvaders
       @x = x
       @y = y + @velocity
       @z = z
+    end
+
+    def collides_with?(object)
+      object.bottom  > top    &&
+        object.top   < bottom &&
+        object.right > left   &&
+        object.left  < right
     end
 
     def update

@@ -1,8 +1,9 @@
 require "space_invaders/laser"
+require "space_invaders/positionable"
 
 module SpaceInvaders
   class Rocket
-    attr_reader :x
+    include Positionable
 
     def initialize(x, y, z, max_x)
       @image = Gosu::Image.new("media/images/rocket.png")
@@ -39,12 +40,15 @@ module SpaceInvaders
       @image.height
     end
 
-    def update
+    def update(aliens)
       if laser_count >= 1 && @lasers.first.y <= -16
         @lasers = []
       end
       @lasers.each do |laser|
         laser.update
+        aliens.each do |alien|
+          alien.die! if laser.collides_with?(alien)
+        end
       end
     end
 

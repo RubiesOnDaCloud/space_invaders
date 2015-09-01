@@ -1,16 +1,36 @@
+require 'space_invaders/laser'
+require 'space_invaders/positionable'
+
 module SpaceInvaders
   class Alien
-    attr_reader :x, :y
+    include Positionable
 
     def initialize(x, y, z)
       @image = Gosu::Image.new("media/images/alien.png")
       @x = x
       @y = y
       @z = z
-      @scale = 0.5
+      @scale = 1.0
       @velocity_x = 10
       @counter = 0
       @lasers = []
+      @death_counter = 0
+      @dead = false
+    end
+
+    def die!
+      return if dead?
+      @dead = true
+      @image = Gosu::Image.new("media/images/collision.png")
+      Gosu::Sample.new("media/sounds/glass.wav").play
+    end
+
+    def dead?
+      @dead
+    end
+
+    def alive?
+      not @dead
     end
 
     def fire_laser
@@ -18,19 +38,24 @@ module SpaceInvaders
     end
 
     def update
-      @counter = @counter + 1
-      if @counter % 40 == 0
-        @x = @x + @velocity_x
+      if dead?
+        @death_counter += 1
+        @scale = (30 - @death_counter) / 30.0
+      else
+        @counter += 1
+        if @counter % 40 == 0
+          @x = @x + @velocity_x
+        end
       end
-
       @lasers.each do |laser|
         laser.update
       end
     end
 
     def draw
-      @image.draw(@x, @y, 0, @scale, @scale)
-
+      offset_x = @image.width * (1 - @scale) / 2
+      offset_y = @image.height * (1 - @scale) / 2
+      @image.draw(@x + offset_x, @y + offset_y, @z, @scale, @scale) if @death_counter < 30
       @lasers.each do |laser|
         laser.draw
       end
