@@ -37,7 +37,7 @@ module SpaceInvaders
       @lasers << Laser.new(@x + (@image.width/2) - 2, @y, 0, "purple", +5)
     end
 
-    def update
+    def update(rocket)
       if dead?
         @death_counter += 1
         @scale = (30 - @death_counter) / 30.0
@@ -49,6 +49,7 @@ module SpaceInvaders
       end
       @lasers.each do |laser|
         laser.update
+        rocket.die! if laser.collides_with?(rocket)
       end
     end
 
