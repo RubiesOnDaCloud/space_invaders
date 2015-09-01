@@ -47,7 +47,7 @@ module SpaceInvaders
       @lasers.each do |laser|
         laser.update
         aliens.each do |alien|
-          alien.die! if alien.alive? && laser.collides_with?(alien)
+          alien.die! if laser.collides_with?(alien)
         end
       end
     end

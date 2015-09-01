@@ -2,7 +2,7 @@ require "forwardable"
 
 module SpaceInvaders
   module Positionable
-    attr_accessor :x, :y
+    attr_reader :x, :y
     alias :top :y
     alias :left :x
     extend Forwardable

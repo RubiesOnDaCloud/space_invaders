@@ -10,6 +10,7 @@ module SpaceInvaders
       @x = x
       @y = y
       @z = z
+      @scale = 1.0
       @velocity_x = 10
       @counter = 0
       @lasers = []
@@ -18,6 +19,7 @@ module SpaceInvaders
     end
 
     def die!
+      return if dead?
       @dead = true
       @image = Gosu::Image.new("media/images/collision.png")
       Gosu::Sample.new("media/sounds/glass.wav").play
@@ -38,6 +40,7 @@ module SpaceInvaders
     def update
       if dead?
         @death_counter += 1
+        @scale = (30 - @death_counter) / 30.0
       else
         @counter += 1
         if @counter % 40 == 0
@@ -50,7 +53,9 @@ module SpaceInvaders
     end
 
     def draw
-      @image.draw(@x, @y, @z) if @death_counter < 30
+      offset_x = @image.width * (1 - @scale) / 2
+      offset_y = @image.height * (1 - @scale) / 2
+      @image.draw(@x + offset_x, @y + offset_y, @z, @scale, @scale) if @death_counter < 30
       @lasers.each do |laser|
         laser.draw
       end
