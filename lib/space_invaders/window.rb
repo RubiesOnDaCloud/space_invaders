@@ -5,15 +5,16 @@ require "space_invaders/alien"
 module SpaceInvaders
   class Window < Gosu::Window
     WIDTH = 640
-    HEIGHT = 441
+    HEIGHT = 481
 
     def initialize
       super(WIDTH, HEIGHT)
+      @font = Gosu::Font.new(20)
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 110
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 2, WIDTH - 1)
       @aliens = []
-      for row in 1..5
+      for row in 2..6
         for col in 0..10
           @aliens << Alien.new(45 * col, 35 * row, 1)
         end
@@ -42,7 +43,8 @@ module SpaceInvaders
     end
 
     def draw
-      @background.draw(0, 0, -1)
+      @font.draw("Score: #{@rocket.score}", 10, 10, 1)
+      @background.draw(0, 40, -1)
       @rocket.draw
       @aliens.each do |alien|
         alien.draw

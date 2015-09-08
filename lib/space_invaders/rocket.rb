@@ -4,6 +4,7 @@ require "space_invaders/positionable"
 module SpaceInvaders
   class Rocket
     include Positionable
+    attr_reader :score
 
     def initialize(x, y, z, max_x)
       @image = Gosu::Image.new("media/images/rocket.png")
@@ -15,6 +16,7 @@ module SpaceInvaders
       @lasers = []
       @death_counter = 0
       @dead = false
+      @score = 0
     end
 
     def die!
@@ -71,6 +73,7 @@ module SpaceInvaders
           if laser.collides_with?(alien)
             alien.die!  
             @lasers = []
+            @score += 10
           end
         end
       end
