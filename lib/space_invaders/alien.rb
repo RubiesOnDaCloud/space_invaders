@@ -21,7 +21,7 @@ module SpaceInvaders
     def die!
       return if dead?
       @dead = true
-      @image = Gosu::Image.new("media/images/collision.png")
+      @image = Gosu::Image.new("media/images/alien_explosion.png")
       Gosu::Sample.new("media/sounds/glass.wav").play
     end
 
