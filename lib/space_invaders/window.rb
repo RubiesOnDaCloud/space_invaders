@@ -12,9 +12,10 @@ module SpaceInvaders
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 110
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 2, WIDTH - 1)
-      @aliens = (0..10).cycle.take(55).each_slice(11).flat_map.with_index do |slice, row|
-        slice.map do |n|
-          Alien.new(45 * n, 35 * (row + 1), 1)
+      @aliens = []
+      for row in 1..5
+        for col in 0..10
+          @aliens << Alien.new(45 * col, 35 * row, 1)
         end
       end
       @counter = 0
