@@ -4,6 +4,9 @@ require 'space_invaders/positionable'
 module SpaceInvaders
   class Alien
     include Positionable
+  
+    @@velocity_x = 10
+    @@speed = 40
 
     def initialize(x, y, z)
       @image = Gosu::Image.new("media/images/alien.png")
@@ -11,7 +14,6 @@ module SpaceInvaders
       @y = y
       @z = z
       @scale = 1.0
-      @velocity_x = 10
       @counter = 0
       @lasers = []
       @death_counter = 0
@@ -37,7 +39,19 @@ module SpaceInvaders
       @lasers << Laser.new(@x + width / 2 - 2, @y, 0, "purple", +5)
     end
 
+    def hits_wall
+      @@velocity_x *= -1
+      @@speed = [@@speed-5, 1].max
+    end
+    private :hits_wall
+
     def update(rocket)
+      if @@velocity_x >= 0
+        hits_wall if right >= 640
+      else
+        hits_wall if left <= 0
+      end
+
       if dead?
         @death_counter += 1
         @scale = (30 - @death_counter) / 30.0
@@ -45,8 +59,8 @@ module SpaceInvaders
         # pause
       else
         @counter += 1
-        if @counter % 40 == 0
-          @x = @x + @velocity_x
+        if @counter % @@speed == 0
+          @x += @@velocity_x
         end
       end
       @lasers.each do |laser|
