@@ -4,26 +4,52 @@ require "space_invaders/positionable"
 module SpaceInvaders
   class Rocket
     include Positionable
-    attr_reader :score
+    attr_reader :lives, :score
 
     def initialize(x, y, z, max_x)
       @image = Gosu::Image.new("media/images/rocket.png")
+      @initial_x = x
+      @initial_y = y
+      @initial_z = z
       @x = x
       @y = y
       @z = z
       @scale = 1.0
       @max_x = max_x
       @lasers = []
-      @death_counter = 0
       @dead = false
+      @death_counter = 0
+      @hit = false
+      @hit_counter = 0
+      @lives = 3
       @score = 0
     end
 
-    def die!
+    def hit!
       return if dead?
-      @dead = true
+      @hit = true
       @image = Gosu::Image.new("media/images/rocket_explosion.png")
-      Gosu::Sample.new("media/sounds/dying.wav").play
+      @lives -= 1
+      if @lives.zero?
+        @dead = true
+        Gosu::Sample.new("media/sounds/dying.wav").play
+      else
+        Gosu::Sample.new("media/sounds/grenade.wav").play
+      end
+    end
+
+    def respawn!
+      @image = Gosu::Image.new("media/images/rocket.png")
+      @x = @initial_x
+      @y = @initial_y
+      @z = @initial_z
+      @scale = 1.0
+      @hit = false
+      @hit_counter = 0
+    end
+
+    def hit?
+      @hit
     end
 
     def dead?
@@ -39,7 +65,7 @@ module SpaceInvaders
     end
 
     def move_left
-      return if dead?
+      return if hit?
       @x -= 10
       if @x < 0
         @x = 0
@@ -47,7 +73,7 @@ module SpaceInvaders
     end
 
     def move_right
-      return if dead?
+      return if hit?
       @x += 10
       if @x > @max_x - width
         @x = @max_x - width
@@ -55,7 +81,7 @@ module SpaceInvaders
     end
 
     def fire_laser
-      return if dead?
+      return if hit?
       @lasers << Laser.new(@x + (width/2) - 2, @y - 1, 0, "yellow", -5)
     end
 
@@ -63,6 +89,10 @@ module SpaceInvaders
       if dead?
         @death_counter += 1
         @scale = 0.000005 * @death_counter ** 3 + 0.000005 * @death_counter + 1
+      elsif hit?
+        @hit_counter += 1
+        @scale = (120 - @hit_counter) / 120.0
+        respawn! if @hit_counter >= 120
       end
       if laser_count >= 1 && @lasers.first.y <= -16
         @lasers = []
@@ -71,7 +101,7 @@ module SpaceInvaders
         laser.update
         aliens.select { |alien| alien.alive? }.each do |alien|
           if laser.collides_with?(alien)
-            alien.die!  
+            alien.die!
             @lasers = []
             @score += 10
           end

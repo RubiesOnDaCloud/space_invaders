@@ -37,7 +37,7 @@ module SpaceInvaders
       end
       @rocket.update(@aliens)
       @counter = @counter + 1
-      if @counter % 120 == 0 && @rocket.alive?
+      if @counter % 120 == 0 && !@rocket.hit?
         @aliens.select(&:alive?).sample.fire_laser
       end
     end
@@ -46,6 +46,11 @@ module SpaceInvaders
       @font.draw("Score: #{@rocket.score}", 10, 10, 1)
       @background.draw(0, 40, -1)
       @rocket.draw
+      @rocket.lives.times do |n|
+        life = Gosu::Image.new("media/images/rocket.png")
+        scale = 0.2
+        life.draw(WIDTH - 70 + 2 * life.width * scale * n, 10, 1, scale, scale)
+      end
       @aliens.each do |alien|
         alien.draw
       end
