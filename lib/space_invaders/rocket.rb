@@ -18,6 +18,7 @@ module SpaceInvaders
       @max_x = max_x
       @lasers = []
       @dead = false
+      @exploded = false
       @death_counter = 0
       @hit = false
       @hit_counter = 0
@@ -64,6 +65,10 @@ module SpaceInvaders
       @lasers.count
     end
 
+    def exploded?
+      @exploded
+    end
+
     def move_left
       return if hit?
       @x -= 10
@@ -87,7 +92,11 @@ module SpaceInvaders
 
     def update(aliens)
       if dead?
+        return if @exploded
         @death_counter += 1
+        if @death_counter >= 120
+          @exploded = true
+        end
         @scale = 0.000005 * @death_counter ** 3 + 0.000005 * @death_counter + 1
       elsif hit?
         @hit_counter += 1
