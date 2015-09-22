@@ -1,6 +1,6 @@
 require "gosu"
 require "space_invaders/rocket"
-require "space_invaders/alien"
+require "space_invaders/alien_army"
 
 module SpaceInvaders
   class Window < Gosu::Window
@@ -13,12 +13,7 @@ module SpaceInvaders
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 110
       @rocket = Rocket.new(WIDTH / 2, HEIGHT - 110, 2, WIDTH - 1)
-      @aliens = []
-      for row in 2..6
-        for col in 0..10
-          @aliens << Alien.new(45 * col, 35 * row, 1)
-        end
-      end
+      @alien_army = AlienArmy.new
       @counter = 0
     end
 
@@ -32,13 +27,11 @@ module SpaceInvaders
       if Gosu::button_down?(Gosu::KbSpace) && @rocket.laser_count.zero?
         @rocket.fire_laser
       end
-      @aliens.each do |alien|
-        alien.update(@rocket)
-      end
-      @rocket.update(@aliens)
+      @alien_army.update(@rocket)
+      @rocket.update(@alien_army)
       @counter = @counter + 1
       if @counter % 120 == 0 && !@rocket.hit?
-        @aliens.select(&:alive?).sample.fire_laser
+        @alien_army.alive_aliens.sample.fire_laser
       end
     end
 
@@ -51,7 +44,7 @@ module SpaceInvaders
         scale = 0.2
         life.draw(WIDTH - 70 + 2 * life.width * scale * n, 10, 1, scale, scale)
       end
-      @aliens.each do |alien|
+      @alien_army.each do |alien|
         alien.draw
       end
     end

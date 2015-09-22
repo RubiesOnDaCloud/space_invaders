@@ -85,7 +85,7 @@ module SpaceInvaders
       @lasers << Laser.new(@x + (width/2) - 2, @y - 1, 0, "yellow", -5)
     end
 
-    def update(aliens)
+    def update(alien_army)
       if dead?
         @death_counter += 1
         @scale = 0.000005 * @death_counter ** 3 + 0.000005 * @death_counter + 1
@@ -99,7 +99,7 @@ module SpaceInvaders
       end
       @lasers.each do |laser|
         laser.update
-        aliens.select { |alien| alien.alive? }.each do |alien|
+        alien_army.alive_aliens.each do |alien|
           if laser.collides_with?(alien)
             alien.die!
             @lasers = []
