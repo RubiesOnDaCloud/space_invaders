@@ -4,11 +4,12 @@ require 'space_invaders/positionable'
 module SpaceInvaders
   class Alien
     include Positionable
+    attr_reader :score
   
     attr_accessor :velocity_x
     attr_accessor :speed
 
-    def initialize(x, y, z)
+    def initialize(x, y, z, score)
       @image = Gosu::Image.new("media/images/alien.png")
       @x = x
       @y = y
@@ -20,6 +21,7 @@ module SpaceInvaders
       @dead = false
       @velocity_x = 10
       @speed = 40
+      @score = score
     end
 
     def die!

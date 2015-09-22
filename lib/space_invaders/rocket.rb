@@ -103,7 +103,7 @@ module SpaceInvaders
           if laser.collides_with?(alien)
             alien.die!
             @lasers = []
-            @score += 10
+            @score += alien.score
           end
         end
       end
