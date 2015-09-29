@@ -10,27 +10,39 @@ module SpaceInvaders
     def initialize
       @direction = "right"
       @aliens = []
-      for row in 2..6
-        for col in 0..10
-          @aliens << Alien.new(45 * col, 35 * row, 1)
+      for row in 1..5
+        for col in 1..11
+          @aliens << Alien.new(45 * col, 35 * (row+1), 1, row_score(row))
         end
       end
     end
+
+    def row_score(row)
+      case row
+      when 1 
+        40
+      when 2..3
+        20
+      else
+        10
+      end
+    end
+    private :row_score
 
     def alive_aliens
       @aliens.select(&:alive?)
     end
 
     def left
-      @aliens.map(&:left).min
+      alive_aliens.map(&:left).min
     end
 
     def right
-      @aliens.map(&:right).max
+      alive_aliens.map(&:right).max
     end
 
     def bottom
-      @aliens.map(&:bottom).max
+      alive_aliens.map(&:bottom).max
     end
 
     def hits_wall
