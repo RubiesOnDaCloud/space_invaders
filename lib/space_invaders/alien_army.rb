@@ -51,6 +51,7 @@ module SpaceInvaders
       else
         @direction = "right"
       end
+      @aliens.each {|alien| alien.y += 10}      
       @aliens.each {|alien| alien.velocity_x *= -1}
       @aliens.each {|alien| alien.speed = [alien.speed+5, 35].min}
     end
