@@ -20,7 +20,7 @@ module SpaceInvaders
       @death_counter = 0
       @dead = false
       @velocity_x = 10
-      @speed = 40
+      @speed = 1
       @score = score
     end
 
@@ -51,7 +51,7 @@ module SpaceInvaders
         # pause
       else
         @counter += 1
-        if @counter % @speed == 0
+        if @counter % (41 - @speed) == 0
           @x += @velocity_x
         end
       end

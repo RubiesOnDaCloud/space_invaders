@@ -34,15 +34,15 @@ module SpaceInvaders
     end
 
     def left
-      alive_aliens.map(&:left).min
+      @aliens.map(&:left).min
     end
 
     def right
-      alive_aliens.map(&:right).max
+      @aliens.map(&:right).max
     end
 
     def bottom
-      alive_aliens.map(&:bottom).max
+      @aliens.map(&:bottom).max
     end
 
     def hits_wall
@@ -52,7 +52,7 @@ module SpaceInvaders
         @direction = "right"
       end
       @aliens.each {|alien| alien.velocity_x *= -1}
-      @aliens.each {|alien| alien.speed = [alien.speed-5, 1].max}
+      @aliens.each {|alien| alien.speed = [alien.speed+5, 35].min}
     end
     private :hits_wall
 
