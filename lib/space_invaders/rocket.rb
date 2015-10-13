@@ -87,7 +87,7 @@ module SpaceInvaders
 
     def fire_laser
       return if hit?
-      @lasers << Laser.new(@x + (width/2) - 2, @y - 1, 0, "yellow", -5)
+      @lasers << Laser.new(@x + (width/2) - 2, @y - 1, 0, "red", -30)
     end
 
     def update(alien_army)
