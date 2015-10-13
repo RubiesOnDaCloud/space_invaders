@@ -92,7 +92,6 @@ module SpaceInvaders
 
     def update(alien_army)
       if dead?
-        return if @exploded
         @death_counter += 1
         if @death_counter >= 120
           @exploded = true

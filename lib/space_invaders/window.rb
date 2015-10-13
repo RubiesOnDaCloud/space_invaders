@@ -18,8 +18,6 @@ module SpaceInvaders
     end
 
     def update
-      return if rocket.exploded?
-        
       if Gosu::button_down?(Gosu::KbLeft)
         @rocket.move_left
       end
@@ -38,6 +36,10 @@ module SpaceInvaders
     end
 
     def draw
+      if @rocket.exploded?
+        @gameover = Gosu::Font.new(55)
+        @gameover.draw("GAME OVER", 170, HEIGHT/2, 3, 1.0, 1.0, 0xff_000000)
+      end
       @font.draw("Score: #{@rocket.score}", 10, 10, 1)
       @background.draw(0, 40, -1)
       @rocket.draw
