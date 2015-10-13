@@ -18,6 +18,8 @@ module SpaceInvaders
     end
 
     def update
+      return if rocket.exploded?
+        
       if Gosu::button_down?(Gosu::KbLeft)
         @rocket.move_left
       end
