@@ -63,8 +63,10 @@ module SpaceInvaders
       else
         hits_wall if left <= 0
       end
-      @aliens.each do |alien|
-        alien.update(rocket)
+      unless rocket.hit?
+        @aliens.each do |alien|
+          alien.update(rocket)
+        end
       end
     end
 

@@ -47,8 +47,6 @@ module SpaceInvaders
       if dead?
         @death_counter += 1
         @scale = (30 - @death_counter) / 30.0
-      elsif rocket.hit?
-        # pause
       else
         @counter += 1
         if @counter % (41 - @speed) == 0
