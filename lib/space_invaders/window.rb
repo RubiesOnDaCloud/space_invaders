@@ -9,6 +9,10 @@ module SpaceInvaders
 
     def initialize
       super(WIDTH, HEIGHT)
+      reset
+    end
+
+    def reset
       @font = Gosu::Font.new(20)
       @background = Gosu::Image.new("media/images/background.jpg")
       # FIXME: Use the rocket's height instead of hardcoding 110
@@ -27,6 +31,12 @@ module SpaceInvaders
       if Gosu::button_down?(Gosu::KbSpace) && @rocket.laser_count.zero?
         @rocket.fire_laser
       end
+      if Gosu::button_down?(Gosu::KbN) && @rocket.exploded?
+        close
+      end
+      if Gosu::button_down?(Gosu::KbY) && @rocket.exploded?
+        reset
+      end
       @alien_army.update(@rocket)
       @rocket.update(@alien_army)
       @counter = @counter + 1
@@ -38,7 +48,9 @@ module SpaceInvaders
     def draw
       if @rocket.exploded?
         @gameover = Gosu::Font.new(55)
-        @gameover.draw("GAME OVER", 170, HEIGHT/2, 3, 1.0, 1.0, 0xff_000000)
+        @gameover.draw("GAME OVER", 170, 100, 3, 1.0, 2.0, 0xff_000000)
+        @continue = Gosu::Font.new(30)
+        @continue.draw("Continue ? (y/n)", 220, 220, 3, 1.0, 1.0, 0xff_00aff0)
       end
       @font.draw("Score: #{@rocket.score}", 10, 10, 1)
       @background.draw(0, 40, -1)
@@ -54,3 +66,4 @@ module SpaceInvaders
     end
   end
 end
+

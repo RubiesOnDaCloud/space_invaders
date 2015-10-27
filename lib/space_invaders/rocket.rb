@@ -93,7 +93,7 @@ module SpaceInvaders
     def update(alien_army)
       if dead?
         @death_counter += 1
-        if @death_counter >= 120
+        if @death_counter >= 240
           @exploded = true
         end
         @scale = 0.000005 * @death_counter ** 3 + 0.000005 * @death_counter + 1
