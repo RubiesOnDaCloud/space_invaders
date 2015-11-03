@@ -38,6 +38,9 @@ module SpaceInvaders
         reset
       end
       @alien_army.update(@rocket)
+      if @alien_army.bottom >= HEIGHT - 110
+        @rocket.die!
+      end
       @rocket.update(@alien_army)
       @counter = @counter + 1
       if @counter % 120 == 0 && !@rocket.hit?

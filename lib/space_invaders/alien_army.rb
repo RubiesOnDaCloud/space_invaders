@@ -34,15 +34,15 @@ module SpaceInvaders
     end
 
     def left
-      @aliens.map(&:left).min
+      alive_aliens.map(&:left).min
     end
 
     def right
-      @aliens.map(&:right).max
+      alive_aliens.map(&:right).max
     end
 
     def bottom
-      @aliens.map(&:bottom).max
+      alive_aliens.map(&:bottom).max
     end
 
     def hits_wall
