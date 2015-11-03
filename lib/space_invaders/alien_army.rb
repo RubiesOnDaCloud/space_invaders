@@ -19,7 +19,7 @@ module SpaceInvaders
 
     def row_score(row)
       case row
-      when 1 
+      when 1
         40
       when 2..3
         20
@@ -47,11 +47,11 @@ module SpaceInvaders
 
     def hits_wall
       if @direction == "right"
-        @direction = "left" 
+        @direction = "left"
       else
         @direction = "right"
       end
-      @aliens.each {|alien| alien.y += 10}      
+      @aliens.each {|alien| alien.y += 10}
       @aliens.each {|alien| alien.velocity_x *= -1}
       @aliens.each {|alien| alien.speed = [alien.speed+5, 35].min}
     end
@@ -70,7 +70,7 @@ module SpaceInvaders
       end
     end
 
-  end 
+  end
 end
 
 

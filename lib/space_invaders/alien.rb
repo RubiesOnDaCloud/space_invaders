@@ -5,7 +5,7 @@ module SpaceInvaders
   class Alien
     include Positionable
     attr_reader :score
-  
+
     attr_accessor :velocity_x
     attr_accessor :speed
 

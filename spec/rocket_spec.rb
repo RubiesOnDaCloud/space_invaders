@@ -14,7 +14,7 @@ RSpec.describe SpaceInvaders::Rocket do
       expect(rocket.x).to be(9)
       rocket.move_left
       expect(rocket.x).to be(0)
-    end  
+    end
   end
   describe "#move_right" do
     it "moves the rocket right by 10 pixel" do
