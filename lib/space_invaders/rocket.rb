@@ -39,6 +39,15 @@ module SpaceInvaders
       end
     end
 
+    def die!
+      return if dead?
+      @hit = true
+      @image = Gosu::Image.new("media/images/rocket_explosion.png")
+      @lives = 0
+      @dead = true
+      Gosu::Sample.new("media/sounds/dying.wav").play
+    end
+
     def respawn!
       @image = Gosu::Image.new("media/images/rocket.png")
       @x = @initial_x
