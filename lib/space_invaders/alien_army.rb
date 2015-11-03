@@ -45,6 +45,10 @@ module SpaceInvaders
       alive_aliens.map(&:bottom).max
     end
 
+    def all_dead?
+      alive_aliens.empty?
+    end
+
     def hits_wall
       if @direction == "right"
         @direction = "left"

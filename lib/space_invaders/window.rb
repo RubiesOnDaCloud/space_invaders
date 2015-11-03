@@ -43,7 +43,7 @@ module SpaceInvaders
       end
       @rocket.update(@alien_army)
       @counter = @counter + 1
-      if @counter % 120 == 0 && !@rocket.hit?
+      if @counter % 120 == 0 && !@rocket.hit? && !@alien_army.all_dead?
         @alien_army.alive_aliens.sample.fire_laser
       end
     end
@@ -54,6 +54,10 @@ module SpaceInvaders
         @gameover.draw("GAME OVER", 170, 100, 3, 1.0, 2.0, 0xff_000000)
         @continue = Gosu::Font.new(30)
         @continue.draw("Continue ? (y/n)", 220, 220, 3, 1.0, 1.0, 0xff_00aff0)
+      end
+      if @alien_army.all_dead?
+        @win = Gosu::Font.new(55)
+        @win.draw("YOU WON", 170, 100, 3, 1.0, 2.0, 0xff_ffffff)
       end
       @font.draw("Score: #{@rocket.score}", 10, 10, 1)
       @background.draw(0, 40, -1)
