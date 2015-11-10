@@ -44,6 +44,13 @@ module SpaceInvaders
     end
 
     def update(rocket)
+      @lasers.each do |laser|
+      laser.update
+        if laser.collides_with?(rocket)
+          rocket.hit!
+          @lasers.delete(laser)
+        end
+      end
       if dead?
         @death_counter += 1
         @scale = (30 - @death_counter) / 30.0
@@ -51,15 +58,10 @@ module SpaceInvaders
         @counter += 1
         if @counter % (41 - @speed) == 0
           @x += @velocity_x
+          return true
         end
       end
-      @lasers.each do |laser|
-        laser.update
-        if laser.collides_with?(rocket)
-          rocket.hit!
-          @lasers.delete(laser)
-        end
-      end
+      return false
     end
 
     def draw
