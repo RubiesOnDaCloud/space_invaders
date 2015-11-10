@@ -37,15 +37,17 @@ module SpaceInvaders
       if Gosu::button_down?(Gosu::KbY) && @rocket.exploded?
         reset
       end
-      @alien_army.update(@rocket)
-      if @alien_army.bottom >= HEIGHT - @rocket.height
-        @rocket.die!
+      unless @alien_army.all_dead?
+        @alien_army.update(@rocket)
+        if @alien_army.bottom >= HEIGHT - @rocket.height
+          @rocket.die!
+        end
+        @rocket.update(@alien_army)
+        if @counter % 120 == 0 && !@rocket.hit?
+          @alien_army.alive_aliens.sample.fire_laser
+        end
       end
-      @rocket.update(@alien_army)
       @counter = @counter + 1
-      if @counter % 120 == 0 && !@rocket.hit? && !@alien_army.all_dead?
-        @alien_army.alive_aliens.sample.fire_laser
-      end
     end
 
     def draw
