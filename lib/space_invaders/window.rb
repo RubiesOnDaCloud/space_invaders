@@ -10,6 +10,7 @@ module SpaceInvaders
     def initialize
       super(WIDTH, HEIGHT)
       reset
+      @input = Gosu::TextInput.new
     end
 
     def reset
@@ -48,14 +49,23 @@ module SpaceInvaders
         end
       end
       @counter = @counter + 1
+      if @rocket.exploded? && Gosu::button_down?(Gosu::kbEnter)
+        #@input.text + score into file
+      end
     end
+
 
     def draw
       if @rocket.exploded?
-        @gameover = Gosu::Font.new(55)
-        @gameover.draw("GAME OVER", 170, 100, 3, 1.0, 2.0, 0xff_000000)
-        @continue = Gosu::Font.new(30)
-        @continue.draw("Continue ? (y/n)", 220, 220, 3, 1.0, 1.0, 0xff_00aff0)
+        @message = Gosu::Font.new(15)
+        @message.draw("Please write your name for the highscore",50, 100, 3, 1.0, 2.0, 0xff_000000)
+        self.text_input=@input
+        @name = Gosu::Font.new(50)
+        @name.draw(@input.text,170, 150, 3, 1.0, 2.0, 0xff_000000)
+        #@gameover = Gosu::Font.new(55)
+        #@gameover.draw("GAME OVER", 170, 100, 3, 1.0, 2.0, 0xff_000000)
+        #@continue = Gosu::Font.new(30)
+        #@continue.draw("Continue ? (y/n)", 220, 220, 3, 1.0, 1.0, 0xff_00aff0)
       end
       if @alien_army.all_dead?
         @win = Gosu::Font.new(55)
