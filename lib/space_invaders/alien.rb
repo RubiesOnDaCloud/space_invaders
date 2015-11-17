@@ -7,7 +7,6 @@ module SpaceInvaders
     attr_reader :score
 
     attr_accessor :velocity_x
-    attr_accessor :speed
 
     def initialize(x, y, z, score)
       @image = Gosu::Image.new("media/images/alien.png")
@@ -15,12 +14,10 @@ module SpaceInvaders
       @y = y
       @z = z
       @scale = 1.0
-      @counter = 0
       @lasers = []
       @death_counter = 0
       @dead = false
       @velocity_x = 10
-      @speed = 1
       @score = score
     end
 
@@ -39,26 +36,25 @@ module SpaceInvaders
       not @dead
     end
 
+    def move
+      @x += @velocity_x
+    end
+
     def fire_laser
       @lasers << Laser.new(@x + width / 2 - 2, @y, 0, "purple", +5)
     end
 
     def update(rocket)
-      if dead?
-        @death_counter += 1
-        @scale = (30 - @death_counter) / 30.0
-      else
-        @counter += 1
-        if @counter % (41 - @speed) == 0
-          @x += @velocity_x
-        end
-      end
       @lasers.each do |laser|
         laser.update
         if laser.collides_with?(rocket)
           rocket.hit!
           @lasers.delete(laser)
         end
+      end
+      if dead?
+        @death_counter += 1
+        @scale = (30 - @death_counter) / 30.0
       end
     end
 

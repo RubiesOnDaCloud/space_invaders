@@ -10,6 +10,14 @@ module SpaceInvaders
     def initialize
       @direction = "right"
       @aliens = []
+      @counter = 0
+      @speed = 1
+      @music = [
+        Gosu::Sample.new("media/sounds/1.wav"),
+        Gosu::Sample.new("media/sounds/2.wav"),
+        Gosu::Sample.new("media/sounds/3.wav"),
+        Gosu::Sample.new("media/sounds/4.wav")
+      ].cycle
       for row in 1..5
         for col in 1..11
           @aliens << Alien.new(45 * col, 35 * (row+1), 1, row_score(row))
@@ -57,15 +65,25 @@ module SpaceInvaders
       end
       @aliens.each {|alien| alien.y += 10}
       @aliens.each {|alien| alien.velocity_x *= -1}
-      @aliens.each {|alien| alien.speed = [alien.speed+5, 35].min}
+      @speed = [@speed+5, 35].min
     end
     private :hits_wall
+
+    def ready_to_move?
+      @counter % (41 - @speed) == 0
+    end
+    private :ready_to_move?
 
     def update(rocket)
       if @direction == "right"
         hits_wall if right >= 640
       else
         hits_wall if left <= 0
+      end
+      @counter += 1
+      if ready_to_move?
+        alive_aliens.each { |alien| alien.move }
+        @music.next.play
       end
       unless rocket.hit?
         @aliens.each do |alien|
